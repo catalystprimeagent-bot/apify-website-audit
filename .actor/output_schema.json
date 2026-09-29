@@ -1,0 +1,13 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Website Technical & SEO Audit Crawler output",
+  "description": "One dataset row per crawled page. See dataset_schema.json for the full field list.",
+  "properties": {
+    "results": {
+      "title": "Dataset items",
+      "type": "string",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "description": "The full set of results, one item per page crawled."
+    }
+  }
+}

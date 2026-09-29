@@ -1,0 +1,20 @@
+{
+  "actorSpecification": 1,
+  "name": "website-audit",
+  "title": "Website Technical & SEO Audit Crawler",
+  "description": "Crawls a list of start URLs and reports the technical-SEO health of every page found: broken links, redirect chains, missing meta descriptions, alt-text coverage, structured data and mixed content.",
+  "version": "0.1",
+  "dockerfile": "./Dockerfile",
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 256,
+  "defaultRunOptions": {
+    "build": "latest",
+    "memoryMbytes": 256,
+    "timeoutSecs": 60
+  }
+}

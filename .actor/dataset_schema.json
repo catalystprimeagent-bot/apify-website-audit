@@ -1,0 +1,124 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "URL",
+        "description": "The page that was fetched (before any redirects).",
+        "example": "https://example.com/"
+      },
+      "ok": {
+        "type": "boolean",
+        "title": "OK",
+        "description": "Whether the request completed and returned a response.",
+        "example": true
+      },
+      "httpStatus": {
+        "type": "integer",
+        "title": "HTTP status",
+        "description": "Final status code after following any redirects. Omitted entirely when the request never completed.",
+        "example": 200
+      },
+      "depth": {
+        "type": "integer",
+        "title": "Depth",
+        "description": "Link-hops from the start URL that this page was discovered at. 0 for a start URL itself.",
+        "example": 0
+      },
+      "title": {
+        "type": "string",
+        "title": "Page title",
+        "description": "Text content of the page's <title> tag. Empty if missing or the response was not HTML.",
+        "example": "Example Domain"
+      },
+      "metaDescriptionLength": {
+        "type": "integer",
+        "title": "Meta description length",
+        "description": "Character length of the <meta name=\"description\"> content attribute. 0 if missing.",
+        "example": 120
+      },
+      "brokenLinks": {
+        "type": "array",
+        "title": "Broken links",
+        "description": "Links found on this page (internal or external) that returned an error or an HTTP status >= 400, up to 20 checked per page.",
+        "items": { "type": "string" }
+      },
+      "redirectChain": {
+        "type": "array",
+        "title": "Redirect chain",
+        "description": "Every URL hopped through after the initial request, in order, ending with the final URL. Empty if the request was not redirected.",
+        "items": { "type": "string" }
+      },
+      "hasStructuredData": {
+        "type": "boolean",
+        "title": "Has structured data",
+        "description": "True if the page has a non-empty application/ld+json script or a microdata (itemscope) element.",
+        "example": false
+      },
+      "imagesMissingAlt": {
+        "type": "integer",
+        "title": "Images missing alt text",
+        "description": "Count of <img> tags with no alt attribute or an empty one.",
+        "example": 0
+      },
+      "mixedContentFound": {
+        "type": "boolean",
+        "title": "Mixed content found",
+        "description": "True if an HTTPS page loads any resource (script, image, stylesheet, etc.) over plain HTTP.",
+        "example": false
+      },
+      "latencyMs": {
+        "type": "integer",
+        "title": "Latency (ms)",
+        "description": "How long the page request took, in milliseconds.",
+        "example": 150
+      },
+      "charged": {
+        "type": "boolean",
+        "title": "Charged",
+        "description": "Whether this row was billed under pay-per-event. Always false while the Actor has no price set.",
+        "example": false
+      },
+      "error": {
+        "type": "string",
+        "title": "Error",
+        "description": "Set when the request failed outright (never got a response). Empty otherwise.",
+        "example": ""
+      }
+    },
+    "required": ["url", "ok", "depth", "brokenLinks", "redirectChain", "latencyMs", "charged"]
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "description": "One row per crawled page.",
+      "transformation": {
+        "fields": ["url", "ok", "httpStatus", "depth", "title", "metaDescriptionLength",
+                   "brokenLinks", "redirectChain", "hasStructuredData", "imagesMissingAlt",
+                   "mixedContentFound", "latencyMs", "charged", "error"]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "url": { "label": "URL", "format": "text" },
+          "ok": { "label": "OK", "format": "boolean" },
+          "httpStatus": { "label": "HTTP Status", "format": "number" },
+          "depth": { "label": "Depth", "format": "number" },
+          "title": { "label": "Title", "format": "text" },
+          "metaDescriptionLength": { "label": "Meta Desc. Length", "format": "number" },
+          "brokenLinks": { "label": "Broken Links", "format": "array" },
+          "redirectChain": { "label": "Redirect Chain", "format": "array" },
+          "hasStructuredData": { "label": "Structured Data", "format": "boolean" },
+          "imagesMissingAlt": { "label": "Images Missing Alt", "format": "number" },
+          "mixedContentFound": { "label": "Mixed Content", "format": "boolean" },
+          "latencyMs": { "label": "Latency (ms)", "format": "number" },
+          "charged": { "label": "Charged", "format": "boolean" },
+          "error": { "label": "Error", "format": "text" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# Go build cache and compiled binaries
+.gocache/
+*.exe
+# Apify local run storage
+storage/

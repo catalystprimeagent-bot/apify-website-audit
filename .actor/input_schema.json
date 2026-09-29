@@ -1,0 +1,52 @@
+{
+  "title": "Website Technical & SEO Audit Crawler",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "startUrls": {
+      "title": "Start URLs",
+      "type": "array",
+      "description": "List of urls to process. Accepts a JSON array, a single string, or a comma/newline separated list.",
+      "editor": "stringList",
+      "items": { "type": "string" },
+      "prefill": ["example.com"]
+    },
+    "urls": {
+      "title": "URLs (alias of startUrls)",
+      "type": "array",
+      "description": "Alias of 'startUrls' for compatibility with tools that use this field name.",
+      "editor": "stringList",
+      "items": { "type": "string" }
+    },
+    "maxPages": {
+      "title": "Max pages",
+      "type": "integer",
+      "description": "Total pages to crawl across every start URL combined. Clamped to 1-50.",
+      "default": 20,
+      "minimum": 1,
+      "maximum": 50
+    },
+    "maxDepth": {
+      "title": "Max link depth",
+      "type": "integer",
+      "description": "How many link-hops from each start URL to follow. 0 audits only the start URLs themselves. Clamped to 0-5.",
+      "default": 2,
+      "minimum": 0,
+      "maximum": 5
+    },
+    "followExternalLinks": {
+      "title": "Follow external links",
+      "type": "boolean",
+      "description": "When true, links to a different domain than the start URL are also crawled (still counted against maxPages/maxDepth). When false (default), off-site links are still checked for brokenLinks but not crawled as their own pages.",
+      "default": false
+    },
+    "timeoutSeconds": {
+      "title": "Per-request timeout (seconds)",
+      "type": "integer",
+      "description": "How long to wait for each page or link check before giving up. Clamped to 3-60.",
+      "default": 15,
+      "minimum": 3,
+      "maximum": 60
+    }
+  }
+}
