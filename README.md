@@ -1,18 +1,22 @@
-# Website Technical & SEO Audit Crawler
+# Website SEO Audit & Broken Link Checker
 
 **Run it on Apify:
-[apify.com/catalyst_prime/website-audit](https://apify.com/catalyst_prime/website-audit)** — free,
+[apify.com/catalyst_prime/website-audit](https://apify.com/catalyst_prime/website-audit)**: free,
 no setup, runs in the browser.
 
-Crawls a list of start URLs and reports the technical-SEO health of every page found: broken
-links, redirect chains, missing meta descriptions, alt-text coverage, structured data and mixed
-content.
+Crawls a list of start URLs and reports the technical-SEO health of every page it finds: **broken
+links**, **redirect chains**, **missing meta descriptions**, **alt-text coverage**, **structured
+data** and **mixed content**. One row per page, so you can sort and filter the whole crawl in a
+spreadsheet.
+
+So it works as a broken link checker, a redirect chain checker and a meta description audit at
+once, over a list of sites or a single site.
 
 This repository is the Actor's source. The Actor itself runs on the
 [Apify platform](https://apify.com/catalyst_prime/website-audit).
 
-**Not a content extractor.** This does not convert pages to Markdown for an LLM/RAG pipeline —
-that job is already well served on the Store. This tool answers a different question: *is this
+**Not a content extractor.** This does not convert pages to Markdown for an LLM/RAG pipeline.
+That job is already well served on the Store. This tool answers a different question: *is this
 page's plumbing broken?*
 
 ## Input
@@ -63,18 +67,18 @@ One dataset row per page actually crawled:
   mixed content.
 - `httpStatus` and the parsed fields are omitted from a row whose request never completed at
   all; `error` is set on that row instead. `charged` reports whether the row was billed (see
-  Pricing) — a row is charged whenever a response was actually received, even a 404 or 500,
+  Pricing): a row is charged whenever a response was actually received, even a 404 or 500,
   since the status itself is the data this Actor sells.
 
 ## How the crawl works
 
 Breadth-first from each start URL. `maxPages` is a single global budget shared across every
-start URL and every depth — once it's spent, no further pages are fetched, wherever they were
+start URL and every depth. Once it's spent, no further pages are fetched, wherever they were
 discovered. `maxDepth` counts link-hops from whichever start URL began that branch, not from
 the page that happens to link to it.
 
 The crawler identifies itself as `CatalystWebsiteAuditBot` and reads `robots.txt` once per host
-(cached for the rest of the run): a page disallowed there is skipped entirely — not fetched, not
+(cached for the rest of the run): a page disallowed there is skipped entirely: not fetched, not
 reported, and its slot in `maxPages` is not spent. It never sends credentials, so it never
 reaches anything behind a login; a page that requires one will show up as its own HTTP status
 (401/403) rather than being silently skipped.
@@ -104,11 +108,11 @@ Four ready-to-run examples, each with real input and real output:
 
 ## Other Actors from the same author
 
-- [Email Verifier](https://apify.com/catalyst_prime/email-verifier) — syntax, MX and
+- [Email Verifier](https://apify.com/catalyst_prime/email-verifier): syntax, MX and
   disposable-domain checks, no target site to break.
   ([source](https://github.com/catalystprimeagent-bot/apify-email-verifier))
-- [Tech Stack Lookup](https://apify.com/catalyst_prime/tech-stack-lookup) — what a site runs on,
+- [Tech Stack Lookup](https://apify.com/catalyst_prime/tech-stack-lookup): what a site runs on,
   plus TLS expiry, CDN and mail provider.
   ([source](https://github.com/catalystprimeagent-bot/apify-tech-stack-lookup))
-- [Google Trends](https://apify.com/catalyst_prime/google-trends) — interest over time and related
+- [Google Trends](https://apify.com/catalyst_prime/google-trends): interest over time and related
   queries for any term. ([source](https://github.com/catalystprimeagent-bot/apify-google-trends))

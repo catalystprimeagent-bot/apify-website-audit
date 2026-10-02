@@ -1,5 +1,5 @@
 {
-  "title": "Website Technical & SEO Audit Crawler",
+  "title": "Website SEO Audit & Broken Link Checker",
   "type": "object",
   "schemaVersion": 1,
   "properties": {
@@ -8,15 +8,21 @@
       "type": "array",
       "description": "List of urls to process. Accepts a JSON array, a single string, or a comma/newline separated list.",
       "editor": "stringList",
-      "items": { "type": "string" },
-      "prefill": ["example.com"]
+      "items": {
+        "type": "string"
+      },
+      "prefill": [
+        "example.com"
+      ]
     },
     "urls": {
       "title": "URLs (alias of startUrls)",
       "type": "array",
       "description": "Alias of 'startUrls' for compatibility with tools that use this field name.",
       "editor": "stringList",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "maxPages": {
       "title": "Max pages",
